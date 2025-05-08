@@ -39,11 +39,13 @@ jobs:
       - name: Install Saxon, Ant and Fundament
         run: |
           sudo apt-get update && sudo apt-get install openjdk-11-jre-headless ant -y --no-install-recommends
-          ./shellscripts/script.sh
+          ./shellscripts/dl_saxon.sh
       - name: install python things
         run: pip install -r requirements.txt
       - name: Fetch the data
         run: ./fetch_data.sh
+      - name: download imprint
+        run: ./shellscripts/dl_imprint.sh
       - name: Build the app
         run: ant
       - name: Setup Pages
