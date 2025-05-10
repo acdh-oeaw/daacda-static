@@ -27,26 +27,47 @@
             <body class="d-flex flex-column h-100">
             <xsl:call-template name="nav_bar"/>
                 <main class="flex-shrink-0 flex-grow-1">
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="ps-5 p-3">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index.html"><xsl:value-of select="$project_short_title"/></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page"><xsl:value-of select="$doc_title"/></li>
+                        </ol>
+                    </nav>
                     <div class="container">
                         <h1 class="text-center pt-3">
                             <xsl:value-of select="$doc_title"/>
                         </h1>
+                        <div class="text-center p-1"><span id="counter1"></span> of <span id="counter2"></span> Airplanes</div>
                         <table id="myTable">
                             <thead>
                                 <tr>
-                                    <th scope="col" tabulator-headerFilter="input">MACR-Nr</th>
+                                    <th scope="col" tabulator-headerFilter="input" tabulator-formatter="html" tabulator-download="false" tabulator-minWidth="200">MACR-Nr</th>
+                                    <th scope="col" tabulator-headerFilter="input" tabulator-visible="false" tabulator-download="true">MACR-Nr_</th>
                                     <th scope="col" tabulator-headerFilter="input">Squadron</th>
                                     <th scope="col" tabulator-headerFilter="input">Crash date</th>
                                     <th scope="col" tabulator-headerFilter="input">Crash place</th>
+                                    <th scope="col" tabulator-headerFilter="input" tabulator-visible="false" tabulator-download="true">ID</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <xsl:for-each
                                     select="collection('../data/editions?select=*.xml')//tei:TEI">
                                     <xsl:variable name="full_path">
-                                        <xsl:value-of select="document-uri(/)"/>
+                                        <xsl:value-of select="data(@xml:id)"/>
+                                    </xsl:variable>
+                                    <xsl:variable name="link">
+                                        <xsl:value-of
+                                            select="replace(tokenize($full_path, '/')[last()], '.xml', '.html')"
+                                        />
                                     </xsl:variable>
                                     <tr>
+                                        <td>
+                                            <a href="{$link}">
+                                                <xsl:value-of select=".//tei:table[@xml:id='bomber_table']//tei:cell[@role='data'][1]/tei:idno/text()"/>
+                                            </a>
+                                        </td>
                                         <td>
                                             <xsl:value-of select=".//tei:table[@xml:id='bomber_table']//tei:cell[@role='data'][1]/tei:idno/text()"/>
                                         </td>
@@ -60,8 +81,7 @@
                                             <xsl:value-of select=".//tei:table[@xml:id='bomber_table']//tei:cell[@role='data'][9]//text()"/>
                                         </td>
                                         <td>
-                                            <xsl:value-of select="tokenize($full_path, '/')[last()]"
-                                            />
+                                            <xsl:value-of select="$link"/>
                                         </td>
                                     </tr>
                                 </xsl:for-each>
