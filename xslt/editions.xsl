@@ -39,6 +39,17 @@
             <body class="d-flex flex-column h-100">
                 <xsl:call-template name="nav_bar"/>
                 <main class="flex-shrink-0 flex-grow-1">
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="ps-5 p-3">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index.html"><xsl:value-of select="$project_short_title"/></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="toc.html"><xsl:value-of select="'Crashed Airplanes'"/></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page"><xsl:value-of select="$doc_title"/></li>
+                        </ol>
+                    </nav>
                     <div class="container">
                         <div class="row">
                             <div class="col-md-2 col-lg-2 col-sm-12 text-start">
@@ -47,8 +58,8 @@
                                         <xsl:attribute name="href">
                                             <xsl:value-of select="$prev"/>
                                         </xsl:attribute>
-                                        <i class="fs-2 bi bi-chevron-left" title="Zurück zum vorigen Dokument" visually-hidden="true">
-                                            <span class="visually-hidden">Zurück zum vorigen Dokument</span>
+                                        <i class="fs-2 bi bi-chevron-left" title="Back to previous entry" visually-hidden="true">
+                                            <span class="visually-hidden">Back to previous entry</span>
                                         </i>
                                     </a>
                                 </xsl:if>
@@ -59,8 +70,8 @@
                                 </h1>
                                 <div>
                                     <a href="{$teiSource}">
-                                        <i class="bi bi-download fs-2" title="Zum TEI/XML Dokument" visually-hidden="true">
-                                            <span class="visually-hidden">Zum TEI/XML Dokument</span>
+                                        <i class="bi bi-download fs-2" title="Download TEI/XML Document" visually-hidden="true">
+                                            <span class="visually-hidden">Download TEI/XML Document</span>
                                         </i>
                                     </a>
                                 </div>
@@ -71,43 +82,16 @@
                                         <xsl:attribute name="href">
                                             <xsl:value-of select="$next"/>
                                         </xsl:attribute>
-                                        <i class="fs-2 bi bi-chevron-right" title="Weiter zum nächsten Dokument" visually-hidden="true">
-                                            <span class="visually-hidden">Weiter zum nächsten Dokument</span>
+                                        <i class="fs-2 bi bi-chevron-right" title="Next document" visually-hidden="true">
+                                            <span class="visually-hidden">Next document</span>
                                         </i>
                                     </a>
                                 </xsl:if>
                             </div>
                         </div>
-                        <xsl:apply-templates select=".//tei:body"></xsl:apply-templates>
-                        <p style="text-align:center;">
-                            <xsl:for-each select=".//tei:note[not(./tei:p)]">
-                                <div class="footnotes" id="{local:makeId(.)}">
-                                    <xsl:element name="a">
-                                        <xsl:attribute name="name">
-                                            <xsl:text>fn</xsl:text>
-                                            <xsl:number level="any" format="1" count="tei:note"/>
-                                        </xsl:attribute>
-                                        <a>
-                                            <xsl:attribute name="href">
-                                                <xsl:text>#fna_</xsl:text>
-                                                <xsl:number level="any" format="1" count="tei:note"/>
-                                            </xsl:attribute>
-                                            <span style="font-size:7pt;vertical-align:super; margin-right: 0.4em">
-                                                <xsl:number level="any" format="1" count="tei:note"/>
-                                            </span>
-                                        </a>
-                                    </xsl:element>
-                                    <xsl:apply-templates/>
-                                </div>
-                            </xsl:for-each>
-                        </p>
+                        
 
                     </div>
-                    <xsl:for-each select="//tei:back">
-                        <div class="tei-back">
-                            <xsl:apply-templates/>
-                        </div>
-                    </xsl:for-each>
                 </main>
                 <xsl:call-template name="html_footer"/>
             </body>
