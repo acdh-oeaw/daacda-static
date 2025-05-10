@@ -8,6 +8,7 @@
     <xsl:import href="./partials/html_navbar.xsl"/>
     <xsl:import href="./partials/html_head.xsl"/>
     <xsl:import href="partials/html_footer.xsl"/>
+    <xsl:import href="./partials/shared.xsl"/>
 
 
     <xsl:template match="/">
@@ -25,7 +26,9 @@
             <xsl:call-template name="nav_bar"/>
                 <main class="flex-shrink-0 flex-grow-1">
                     <div class="container">                        
-                        <h1><xsl:value-of select="$doc_title"/></h1>    
+                        <h1 class="text-center pt-3">
+                            <xsl:value-of select="$doc_title"/>
+                        </h1>    
                         <xsl:apply-templates select=".//tei:body"></xsl:apply-templates>
                     </div>
                 </main>
@@ -35,10 +38,15 @@
     </xsl:template>
 
     <xsl:template match="tei:p">
-        <p id="{generate-id()}"><xsl:apply-templates/></p>
+        <p><xsl:apply-templates/></p>
     </xsl:template>
     <xsl:template match="tei:div">
-        <div id="{generate-id()}"><xsl:apply-templates/></div>
+        <div><xsl:apply-templates/></div>
+    </xsl:template>
+    <xsl:template match="tei:head">
+        <h2>
+            <xsl:apply-templates/>
+        </h2>
     </xsl:template>
     <xsl:template match="tei:lb">
         <br/>
