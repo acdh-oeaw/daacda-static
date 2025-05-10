@@ -16,7 +16,7 @@
 
 
     <xsl:template match="/">
-        <xsl:variable name="doc_title" select="'Inhaltsverzeichnis'"/>
+        <xsl:variable name="doc_title" select="'Crashed Airplanes'"/>
         <html class="h-100" lang="{$default_lang}">
             <head>
                 <xsl:call-template name="html_head">
@@ -28,13 +28,16 @@
             <xsl:call-template name="nav_bar"/>
                 <main class="flex-shrink-0 flex-grow-1">
                     <div class="container">
-                        <h1>Inhaltsverzeichnis</h1>
+                        <h1 class="text-center pt-3">
+                            <xsl:value-of select="$doc_title"/>
+                        </h1>
                         <table id="myTable">
                             <thead>
                                 <tr>
-                                    <th scope="col" width="20" tabulator-formatter="html" tabulator-headerSort="false" tabulator-download="false">#</th>
-                                    <th scope="col" tabulator-headerFilter="input">Titel</th>
-                                    <th scope="col" tabulator-headerFilter="input">Dateinname</th>
+                                    <th scope="col" tabulator-headerFilter="input">MACR-Nr</th>
+                                    <th scope="col" tabulator-headerFilter="input">Squadron</th>
+                                    <th scope="col" tabulator-headerFilter="input">Crash date</th>
+                                    <th scope="col" tabulator-headerFilter="input">Crash place</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,18 +48,16 @@
                                     </xsl:variable>
                                     <tr>
                                         <td>
-                                            <a>
-                                                <xsl:attribute name="href">
-                                                  <xsl:value-of
-                                                  select="replace(tokenize($full_path, '/')[last()], '.xml', '.html')"
-                                                  />
-                                                </xsl:attribute>
-                                                <i class="bi bi-link-45deg"/>
-                                            </a>
+                                            <xsl:value-of select=".//tei:table[@xml:id='bomber_table']//tei:cell[@role='data'][1]/tei:idno/text()"/>
                                         </td>
                                         <td>
-                                            <xsl:value-of
-                                                select=".//tei:titleStmt/tei:title[1]/text()"/>
+                                            <xsl:value-of select=".//tei:table[@xml:id='bomber_table']//tei:cell[@role='data'][5]//text()"/>
+                                        </td>
+                                        <td>
+                                            <xsl:value-of select=".//tei:table[@xml:id='bomber_table']//tei:cell[@role='data'][6]//text()"/>
+                                        </td>
+                                        <td>
+                                            <xsl:value-of select=".//tei:table[@xml:id='bomber_table']//tei:cell[@role='data'][9]//text()"/>
                                         </td>
                                         <td>
                                             <xsl:value-of select="tokenize($full_path, '/')[last()]"

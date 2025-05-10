@@ -14,7 +14,7 @@
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>index</String>
+                                        <String>toc</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
@@ -589,7 +589,7 @@
                                     <Boolean>true</Boolean>
                                 </field>
                                 <field name="openInBrowser">
-                                    <Boolean>true</Boolean>
+                                    <Boolean>false</Boolean>
                                 </field>
                                 <field name="outputResource">
                                     <String>${pd}/html/toc.html</String>
