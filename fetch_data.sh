@@ -9,6 +9,10 @@ mv ./daacda-data-main/data/ .
 
 rm main.zip
 rm -rf ./daacda-data-main
+python pyscripts/zero_pad_filenames.py
+add-attributes -g "./data/editions/*.xml" -b "https://daacda.acdh.oeaw.ac.at"
+add-attributes -g "./data/meta/*.xml" -b "https://daacda.acdh.oeaw.ac.at"
+add-attributes -g "./data/indices/*.xml" -b "https://daacda.acdh.oeaw.ac.at"
 
 echo "fetch imprint"
 ./shellscripts/dl_imprint.sh

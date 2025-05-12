@@ -90,7 +90,57 @@
                             </div>
                         </div>
                         
-
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h2 class="text-center p-2">About the Airplane</h2>
+                                <dl>
+                                    <xsl:for-each select=".//tei:table[@xml:id='bomber_table']//tei:cell[@role='label']">
+                                        <xsl:variable name="curNr" select="position()"/>
+                                        <dt>
+                                            <xsl:value-of select=".//tei:expan"/>
+                                        </dt>
+                                        <dd>
+                                            <xsl:value-of select=".//ancestor::tei:table//tei:cell[@role='data'][$curNr]"/>
+                                        </dd>
+                                    </xsl:for-each>
+                                </dl>
+                            </div>
+                            <div class="col-md-6">
+                                <h2 class="text-center p-2">Map of related places</h2>
+                            </div>
+                        </div>
+                        <div>
+                            <h2 class="text-center p-2">The Crew</h2>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Rank</th>
+                                        <th scope="col">Function</th>
+                                        <th scope="col">Destiny</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <xsl:for-each select=".//tei:table[@xml:id='crew_table']/tei:row[@role='data']">
+                                        <xsl:sort select=".//tei:surname[1]"></xsl:sort>
+                                        <tr>
+                                            <td>
+                                                <xsl:value-of select=".//tei:surname"/>, <xsl:value-of select="string-join(.//tei:forename, ' ')"/>
+                                            </td>
+                                            <td>
+                                                <xsl:value-of select="./tei:cell[7]"/>
+                                            </td>
+                                            <td>
+                                                <xsl:value-of select="./tei:cell[6]"/>
+                                            </td>
+                                            <td>
+                                                <xsl:value-of select="./tei:cell[8]"/>
+                                            </td>
+                                        </tr>
+                                    </xsl:for-each>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </main>
                 <xsl:call-template name="html_footer"/>
