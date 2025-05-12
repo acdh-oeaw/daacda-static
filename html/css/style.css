@@ -1,42 +1,39 @@
 /* needed for interactive map in listplace.xsl */
 
 :root {
-  --dse-base-color: #995c00;    /* Much darker orange for highest contrast */
-  --dse-base-hover: #b36b00;   
+  --dse-base-color: #995c00; /* Much darker orange for highest contrast */
+  --dse-base-hover: #b36b00;
 }
 
-
 a {
-    color: var(--dse-base-color);
+  color: var(--dse-base-color);
 }
 
 a:hover {
-    color: var(--dse-base-hover);
+  color: var(--dse-base-hover);
 }
 
 div#map {
-    height: 50vh;
+  height: 50vh;
 }
 
 /** Match bootstrap navlink focus outline color. */
 :focus-visible {
-    outline: 0;
-    box-shadow: 0 0 0 .25rem rgba(13,110,253,.25);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
 
 dd {
-	margin-bottom: .5rem; 
-	margin-left: 1rem;
+  margin-bottom: 0.5rem;
+  margin-left: 1rem;
 }
 
 .navbar {
-	  border-bottom: 5px solid var(--dse-base-color);
-    font-size: 1.2rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+  border-bottom: 5px solid var(--dse-base-color);
+  font-size: 1.2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
-
-
 
 .btn-primary {
   --bs-btn-bg: var(--dse-base-color);
@@ -45,7 +42,7 @@ dd {
   --bs-btn-hover-border-color: var(--dse-base-color);
   --bs-btn-active-bg: var(--dse-base-color);
   --bs-btn-active-border-color: var(--dse-base-color);
-  --bs-btn-border-color: var(--dse-base-color)
+  --bs-btn-border-color: var(--dse-base-color);
 }
 
 .btn-outline-primary {
@@ -55,5 +52,9 @@ dd {
   --bs-btn-hover-border-color: var(--dse-base-color);
   --bs-btn-active-bg: var(--dse-base-color);
   --bs-btn-active-border-color: var(--dse-base-color);
-  --bs-btn-border-color: var(--dse-base-color)
+  --bs-btn-border-color: var(--dse-base-color);
+}
+
+#airplaneMap {
+  height: 500px;
 }

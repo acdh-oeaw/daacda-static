@@ -35,6 +35,7 @@
                 <xsl:call-template name="html_head">
                     <xsl:with-param name="html_title" select="$doc_title"></xsl:with-param>
                 </xsl:call-template>
+                <link rel="stylesheet" href="vendor/leaflet/leaflet.css"/>
             </head>
             <body class="d-flex flex-column h-100">
                 <xsl:call-template name="nav_bar"/>
@@ -100,13 +101,14 @@
                                             <xsl:value-of select=".//tei:expan"/>
                                         </dt>
                                         <dd>
-                                            <xsl:value-of select=".//ancestor::tei:table//tei:cell[@role='data'][$curNr]"/>
+                                            <xsl:apply-templates select=".//ancestor::tei:table//tei:cell[@role='data'][$curNr]"/>
                                         </dd>
                                     </xsl:for-each>
                                 </dl>
                             </div>
                             <div class="col-md-6">
                                 <h2 class="text-center p-2">Map of related places</h2>
+                                <div id="airplaneMap"></div>
                             </div>
                         </div>
                         <div>
@@ -144,6 +146,8 @@
                     </div>
                 </main>
                 <xsl:call-template name="html_footer"/>
+                <script src="vendor/leaflet/leaflet.js"></script>
+                <script src="js/airplane_detail_view_map.js"></script>
             </body>
         </html>
     </xsl:template>
