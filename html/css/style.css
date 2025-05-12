@@ -35,6 +35,15 @@ dd {
   padding-bottom: 1rem;
 }
 
+.highlight {
+  background-color: var(--dse-base-color) ;
+  color: white;
+  padding: 0.3rem;
+  border-radius: 0.25rem;
+  font-size: 1.2rem;
+  transition: all 0.3s ease-in-out;
+  transform: scale(1.05);
+}
 .btn-primary {
   --bs-btn-bg: var(--dse-base-color);
   --bs-btn-border-color: var(--dse-base-color);
@@ -58,3 +67,4 @@ dd {
 #airplaneMap {
   height: 500px;
 }
+
