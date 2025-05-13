@@ -5,7 +5,6 @@ from slugify import slugify
 from acdh_tei_pyutils.tei import TeiReader
 from acdh_tei_pyutils.utils import extract_fulltext, get_xmlid
 from acdh_xml_pyutils.xml import NSMAP as nsmap
-from csae_pyutils import save_json
 
 
 files = sorted(glob.glob("data/editions/*.xml"))
@@ -44,9 +43,47 @@ for x in tqdm(files):
         data[f"person__{xmlid}"] = item
     for x in doc.any_xpath(".//tei:person[@xml:id]"):
         xmlid = get_xmlid(x)
+
+        occupation = ET.SubElement(x, "{http://www.tei-c.org/ns/1.0}occupation")
+        occupation.text = data[xmlid]["funktion-im-flugzeug"]
+        if data[xmlid]["dienstgrad"]:
+            occupation.attrib["role"] = data[xmlid]["dienstgrad"]
+
+        idno = ET.SubElement(x, "{http://www.tei-c.org/ns/1.0}idno", attrib={"type": "dog-tag"})
+        idno.text = data[xmlid]["kennnummer"]
+
+        note = ET.SubElement(x, "{http://www.tei-c.org/ns/1.0}note", attrib={"type": "eintrag-macr"})
+        note.text = data[xmlid]["eintrag-macr"]
+
+        note = ET.SubElement(x, "{http://www.tei-c.org/ns/1.0}note", attrib={"type": "schicksal"})
+        note.text = data[xmlid]["schicksal"]
+
+        for event in data[xmlid]["stations"]:
+            if event["art-der-verbindung"] == "starb in":
+                death = ET.SubElement(x, "{http://www.tei-c.org/ns/1.0}death")
+                if event["von"]:
+                    death_date = ET.SubElement(death, "{http://www.tei-c.org/ns/1.0}date")
+                    death_date.attrib["when-iso"] = event["von"]
+                    death_date.text = event["von"]
+                if event["ort"]:
+                    place = ET.SubElement(death, "{http://www.tei-c.org/ns/1.0}placeName")
+                    place.text = event["ort"]
         try:
-            data[xmlid]["node"] = ET.tostring(x, encoding="utf-8").decode("utf-8")
+            data[xmlid]["node"] = x
         except KeyError:
             print(f"upsi days; {xmlid} is missing")
 
-save_json(data, "foo.json")
+doc = TeiReader("./data/indices/listperson.xml")
+
+for x in doc.any_xpath(".//tei:person[@xml:id]"):
+    x.getparent().remove(x)
+
+list_person = doc.any_xpath(".//tei:listPerson")[0]
+
+for key, value in data.items():
+    list_person.append(value["node"])
+
+doc.tree_to_file("foo.xml")
+
+
+# save_json(data, "foo.json")
