@@ -1,5 +1,6 @@
 # project specific
 *.html
+*.ipynb
 html/*.xml
 html/beacon.txt
 /html/oai-pmh
@@ -146,3 +147,4 @@ desktop.ini
 
 # MacOS
 .DS_Store
+foo.json
