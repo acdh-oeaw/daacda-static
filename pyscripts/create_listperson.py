@@ -12,6 +12,22 @@ files = sorted(glob.glob("data/editions/*.xml"))
 data = {}
 for x in tqdm(files):
     doc = TeiReader(x)
+    try:
+        marc_id = extract_fulltext(
+            doc.any_xpath(
+                ".//tei:table[@xml:id='bomber_table']/tei:row[@role='data']/tei:cell"
+            )[0]
+        )
+    except IndexError:
+        marc_id = "not provided"
+    try:
+        squad = extract_fulltext(
+            doc.any_xpath(
+                ".//tei:table[@xml:id='bomber_table']/tei:row[@role='data']/tei:cell"
+            )[4]
+        )
+    except:
+        squad = "not provided"
     labels = doc.any_xpath(
         ".//tei:table[@xml:id='crew_table']/tei:row[@role='label']//tei:cell"
     )
@@ -22,6 +38,8 @@ for x in tqdm(files):
         ".//tei:table[@xml:id='crew_table']/tei:row[@role='data']"
     ):
         item = {}
+        item["marc-id"] = marc_id
+        item["squad"] = squad
         for i, y in enumerate(crew.xpath("./tei:cell", namespaces=nsmap)[:9]):
             abbr = slugify(
                 extract_fulltext(labels[i].xpath(".//tei:abbr", namespaces=nsmap)[0])
@@ -49,25 +67,55 @@ for x in tqdm(files):
         if data[xmlid]["dienstgrad"]:
             occupation.attrib["role"] = data[xmlid]["dienstgrad"]
 
-        idno = ET.SubElement(x, "{http://www.tei-c.org/ns/1.0}idno", attrib={"type": "dog-tag"})
+        affiliation = ET.SubElement(x, "{http://www.tei-c.org/ns/1.0}affiliation", attrib={"type": "squad"})
+        org_name = ET.SubElement(affiliation, "{http://www.tei-c.org/ns/1.0}orgName")
+        org_name.text = data[xmlid]["squad"]
+
+        idno = ET.SubElement(
+            x, "{http://www.tei-c.org/ns/1.0}idno", attrib={"type": "marc-id"}
+        )
+        idno.text = data[xmlid]["marc-id"]
+
+        idno = ET.SubElement(
+            x, "{http://www.tei-c.org/ns/1.0}idno", attrib={"type": "dog-tag"}
+        )
         idno.text = data[xmlid]["kennnummer"]
 
-        note = ET.SubElement(x, "{http://www.tei-c.org/ns/1.0}note", attrib={"type": "eintrag-macr"})
+        note = ET.SubElement(
+            x, "{http://www.tei-c.org/ns/1.0}note", attrib={"type": "eintrag-macr"}
+        )
         note.text = data[xmlid]["eintrag-macr"]
 
-        note = ET.SubElement(x, "{http://www.tei-c.org/ns/1.0}note", attrib={"type": "schicksal"})
+        note = ET.SubElement(
+            x, "{http://www.tei-c.org/ns/1.0}note", attrib={"type": "schicksal"}
+        )
         note.text = data[xmlid]["schicksal"]
 
         for event in data[xmlid]["stations"]:
             if event["art-der-verbindung"] == "starb in":
                 death = ET.SubElement(x, "{http://www.tei-c.org/ns/1.0}death")
                 if event["von"]:
-                    death_date = ET.SubElement(death, "{http://www.tei-c.org/ns/1.0}date")
+                    death_date = ET.SubElement(
+                        death, "{http://www.tei-c.org/ns/1.0}date"
+                    )
                     death_date.attrib["when-iso"] = event["von"]
                     death_date.text = event["von"]
                 if event["ort"]:
-                    place = ET.SubElement(death, "{http://www.tei-c.org/ns/1.0}placeName")
+                    place = ET.SubElement(
+                        death, "{http://www.tei-c.org/ns/1.0}placeName"
+                    )
                     place.text = event["ort"]
+            if event["art-der-verbindung"] == "wurde inhaftiert in" and event["institution"]:
+                residence = ET.SubElement(x, "{http://www.tei-c.org/ns/1.0}residence", attrib={"type": "prison"})
+                org_name = ET.SubElement(residence, "{http://www.tei-c.org/ns/1.0}orgName")
+                org_name.text = event["institution"]
+                if event["von"] != "":
+                    residence.attrib["from-iso"] = event["von"]
+                    residence.text = event["von"]
+                if event["bis"] != "":
+                    residence.attrib["from-iso"] = event["bis"]
+                    residence.text = event["bis"]
+
         try:
             data[xmlid]["node"] = x
         except KeyError:
