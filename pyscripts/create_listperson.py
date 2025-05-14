@@ -132,6 +132,3 @@ for key, value in data.items():
     list_person.append(value["node"])
 
 doc.tree_to_file("foo.xml")
-
-
-# save_json(data, "foo.json")
