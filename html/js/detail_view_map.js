@@ -1,11 +1,12 @@
-
-var map = L.map("airplaneMap").setView([50, 14], 5);
+var map = L.map("airplaneMap");
 
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution:
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
+// Create a marker cluster group
+const markers = L.markerClusterGroup();
 
 const spans = document.querySelectorAll(".dse-place[data-lng]");
 const places = Array.from(spans).map((span) => {
@@ -18,8 +19,7 @@ const places = Array.from(spans).map((span) => {
 
 places.forEach((place) => {
   const marker = L.marker([place.lat, place.lng])
-    .bindPopup(place.name)
-    .addTo(map);
+    .bindPopup(place.name);
   marker.id = place.id;
 
   marker.on("mouseover", function (e) {
@@ -32,4 +32,13 @@ places.forEach((place) => {
       el.classList.remove("highlight");
     });
   });
+  
+  // Add marker to cluster group instead of directly to map
+  markers.addLayer(marker);
 });
+
+// Add marker cluster group to map
+map.addLayer(markers);
+
+// Fit map to show all markers
+map.fitBounds(markers.getBounds(), { padding: [50, 50] });
