@@ -127,7 +127,10 @@
                                         <xsl:sort select=".//tei:surname[1]"></xsl:sort>
                                         <tr>
                                             <td>
-                                                <xsl:value-of select=".//tei:surname"/>, <xsl:value-of select="string-join(.//tei:forename, ' ')"/>
+                                                <a>
+                                                    <xsl:attribute name="href"><xsl:value-of select="concat('person__', ./tei:cell[1], '.html')"/></xsl:attribute>
+                                                    <xsl:value-of select=".//tei:surname"/>, <xsl:value-of select="string-join(.//tei:forename, ' ')"/>
+                                                </a>
                                             </td>
                                             <td>
                                                 <xsl:value-of select="./tei:cell[7]"/>
@@ -147,7 +150,7 @@
                 </main>
                 <xsl:call-template name="html_footer"/>
                 <script src="vendor/leaflet/leaflet.js"></script>
-                <script src="js/airplane_detail_view_map.js"></script>
+                <script src="js/detail_view_map.js"></script>
             </body>
         </html>
     </xsl:template>

@@ -1,5 +1,5 @@
 
-var map = L.map("airplaneMap").setView([48, 16], 6);
+var map = L.map("airplaneMap").setView([50, 14], 5);
 
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution:

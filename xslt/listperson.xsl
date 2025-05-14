@@ -139,7 +139,7 @@
                         </main>
                         <xsl:call-template name="html_footer"/>
                         <script src="vendor/leaflet/leaflet.js"></script>
-                        <script src="js/airplane_detail_view_map.js"></script>
+                        <script src="js/detail_view_map.js"></script>
                     </body>
                 </html>
             </xsl:result-document>
