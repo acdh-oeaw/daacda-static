@@ -5,83 +5,43 @@
     version="2.0" exclude-result-prefixes="xsl tei xs">
     
     <xsl:template match="tei:person" name="person_detail">
-        <table class="table entity-table">
-            <tbody>
-                <xsl:if test="./tei:birth/tei:date">
-                <tr>
-                    <th>
-                        Geburtsdatum
-                    </th>
-                    <td>
-                        <xsl:value-of select="./tei:birth/tei:date"/>
-                    </td>
-                </tr>
-                </xsl:if>
-                <xsl:if test="./tei:death/tei:date">
-                <tr>
-                    <th>
-                        Sterbedatum
-                    </th>
-                    <td>
-                        <xsl:value-of select="./tei:death/tei:date"/>
-                    </td>
-                </tr>
-                </xsl:if>
-                <xsl:if test="./tei:idno[@type='GND']/text()">
-                    <tr>
-                        <th>
-                            GND ID
-                        </th>
-                        <td>
-                            <a href="{./tei:idno[@type='GND']}" target="_blank">
-                                <xsl:value-of select="tokenize(./tei:idno[@type='GND'], '/')[last()]"/>
-                            </a>
-                        </td>
-                    </tr>
-                </xsl:if>
-                <xsl:if test="./tei:idno[@type='WIKIDATA']/text()">
-                    <tr>
-                        <th>
-                            Wikidata ID
-                        </th>
-                        <td>
-                            <a href="{./tei:idno[@type='WIKIDATA']}" target="_blank">
-                                <xsl:value-of select="tokenize(./tei:idno[@type='WIKIDATA'], '/')[last()]"/>
-                            </a>
-                        </td>
-                    </tr>
-                </xsl:if>
-                <xsl:if test="./tei:idno[@type='GEONAMES']/text()">
-                    <tr>
-                        <th>
-                            Geonames ID
-                        </th>
-                        <td>
-                            <a href="{./tei:idno[@type='GEONAMES']}" target="_blank">
-                                <xsl:value-of select="tokenize(./tei:idno[@type='GEONAMES'], '/')[4]"/>
-                            </a>
-                        </td>
-                    </tr>
-                </xsl:if>
-                <xsl:if test="./tei:noteGrp/tei:note[@type='mentions']">
-                    <tr>
-                        <th>
-                            Erwähnt in
-                        </th>
-                        <td>
-                            <ul>
-                                <xsl:for-each select="./tei:noteGrp/tei:note[@type='mentions']">
-                                    <li>
-                                        <a href="{replace(@target, '.xml', '.html')}">
-                                            <xsl:value-of select="./text()"/>
-                                        </a>
-                                    </li>
-                                </xsl:for-each>
-                            </ul>
-                        </td>
-                    </tr>
-                </xsl:if>
-            </tbody>
-        </table>
+        <xsl:variable name="marc-link">
+            <xsl:value-of select="replace(.//tei:note[@type='mentions'][1]/@target, '.xml', '.html')"/>
+        </xsl:variable>
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Info</h2>
+                <dl>
+                    <dt>Last name</dt>
+                    <dd><xsl:value-of select=".//tei:surname[1]"/></dd>
+                    
+                    <dt>First name</dt>
+                    <dd><xsl:value-of select="string-join(.//tei:forename, ' ')"/></dd>
+                    
+                    <dt>Squadron</dt>
+                    <dd><xsl:value-of select=".//tei:affiliation[@type='bomb-group']"/></dd>
+                    
+                    <dt>Airforce</dt>
+                    <dd><xsl:value-of select=".//tei:affiliation[@type='airforce']"/></dd>
+                    
+                    <dt>Position</dt>
+                    <dd><xsl:value-of select=".//tei:occupation[1]"/></dd>
+                    
+                    <dt>Rank</dt>
+                    <dd><xsl:value-of select=".//tei:occupation[1]/@role"/></dd>
+                    
+                    <dt>ID number</dt>
+                    <dd><xsl:value-of select=".//tei:idno[@type='dog-tag']"/></dd>
+                    
+                    <dt>MARC-ID</dt>
+                    <dd>
+                        <a href="{$marc-link}">
+                            <xsl:value-of select=".//tei:idno[@type='marc-id']"/>
+                        </a>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </div>
     </xsl:template>
 </xsl:stylesheet>

@@ -12,3 +12,6 @@ rm -rf ./daacda-data-main
 
 echo "fetch imprint"
 ./shellscripts/dl_imprint.sh
+
+echo "denormalizing indices" 
+denormalize-indices -f "./data/editions/*.xml" -i "./data/indices/*.xml"

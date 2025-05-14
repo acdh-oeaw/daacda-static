@@ -28,43 +28,66 @@
                 <xsl:call-template name="nav_bar"/>
 
                 <main class="flex-shrink-0 flex-grow-1">
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="ps-5 p-3">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index.html"><xsl:value-of select="$project_short_title"/></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page"><xsl:value-of select="$doc_title"/></li>
+                        </ol>
+                    </nav>
                     <div class="container">
 
                         <h1>
                             <xsl:value-of select="$doc_title"/>
                         </h1>
+                        <div class="text-center p-1"><span id="counter1"></span> of <span id="counter2"></span> Persons</div>
 
                         <table id="myTable">
                             <thead>
                                 <tr>
-                                    <th scope="col" width="20" tabulator-formatter="html" tabulator-headerSort="false" tabulator-download="false">#</th>
-                                    <th scope="col" tabulator-headerFilter="input">Nachname</th>
-                                    <th scope="col" tabulator-headerFilter="input">Vorname</th>
-                                    <th scope="col" tabulator-headerFilter="input">ID</th>
+                                    <th scope="col" tabulator-headerFilter="input" tabulator-formatter="html" tabulator-download="false" tabulator-minWidth="200">Written name</th>
+                                    <th scope="col" tabulator-headerFilter="input" tabulator-visible="false" tabulator-download="true">Written name_</th>
+                                    <th scope="col" tabulator-headerFilter="input">Squadron</th>
+                                    <th scope="col" tabulator-headerFilter="input">Bomb group</th>
+                                    <th scope="col" tabulator-headerFilter="input">Airforce</th>
+                                    <th scope="col" tabulator-visible="false" tabulator-download="true">ID</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <xsl:for-each select=".//tei:person[@xml:id]">
+                                    <xsl:sort select=".//tei:surname"/>
                                     <xsl:variable name="id">
                                         <xsl:value-of select="data(@xml:id)"/>
                                     </xsl:variable>
+                                    <xsl:variable name="link">
+                                        <xsl:value-of
+                                            select="concat($id, '.html')"
+                                        />
+                                    </xsl:variable>
+                                    <xsl:variable name="writtenName">
+                                        <xsl:value-of select=".//tei:surname"/>, <xsl:value-of select="string-join(.//tei:forename, ' ')"/>
+                                    </xsl:variable>
                                     <tr>
                                         <td>
-                                            <a>
-                                              <xsl:attribute name="href">
-                                              <xsl:value-of select="concat($id, '.html')"/>
-                                              </xsl:attribute>
-                                              <i class="bi bi-link-45deg"/>
+                                            <a href="{$link}">
+                                                <xsl:value-of select="$writtenName"/>
                                             </a>
                                         </td>
                                         <td>
-                                            <xsl:value-of select=".//tei:surname/text()"/>
+                                            <xsl:value-of select="$writtenName"/>
                                         </td>
                                         <td>
-                                            <xsl:value-of select=".//tei:forename/text()"/>
+                                            <xsl:value-of select="normalize-space(string-join(.//tei:affiliation[@type='squad']))"/>
                                         </td>
                                         <td>
-                                            <xsl:value-of select="$id"/>
+                                            <xsl:value-of select="normalize-space(string-join(.//tei:affiliation[@type='bomb-group']))"/>
+                                        </td>
+                                        <td>
+                                            <xsl:value-of select="normalize-space(string-join(.//tei:affiliation[@type='airforce']))"/>
+                                        </td>
+                                        <td>
+                                            <xsl:value-of select="$link"/>
                                         </td>
                                     </tr>
                                 </xsl:for-each>
@@ -81,7 +104,9 @@
 
         <xsl:for-each select=".//tei:person[@xml:id]">
             <xsl:variable name="filename" select="concat(./@xml:id, '.html')"/>
-            <xsl:variable name="name" select="normalize-space(string-join(./tei:persName[1]//text()))"></xsl:variable>
+            <xsl:variable name="name">
+                <xsl:value-of select=".//tei:surname"/>, <xsl:value-of select="string-join(.//tei:forename, ' ')"/>
+            </xsl:variable>
             <xsl:result-document href="{$filename}">
                 <html class="h-100" lang="{$default_lang}">
                     <head>
@@ -93,8 +118,19 @@
                     <body class="d-flex flex-column h-100">
                         <xsl:call-template name="nav_bar"/>
                         <main class="flex-shrink-0 flex-grow-1">
+                            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="ps-5 p-3">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="index.html"><xsl:value-of select="$project_short_title"/></a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="listperson.html"><xsl:value-of select="'Index of Persons'"/></a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page"><xsl:value-of select="$doc_title"/></li>
+                                </ol>
+                            </nav>
                             <div class="container">
-                                <h1>
+                                <h1 class="text-center p-3">
                                     <xsl:value-of select="$name"/>
                                 </h1>
                                 <xsl:call-template name="person_detail"/>  
