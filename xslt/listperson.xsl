@@ -113,6 +113,7 @@
                         <xsl:call-template name="html_head">
                             <xsl:with-param name="html_title" select="$name"></xsl:with-param>
                         </xsl:call-template>
+                        <link rel="stylesheet" href="vendor/leaflet/leaflet.css"/>
                     </head>
 
                     <body class="d-flex flex-column h-100">
@@ -137,6 +138,8 @@
                             </div>
                         </main>
                         <xsl:call-template name="html_footer"/>
+                        <script src="vendor/leaflet/leaflet.js"></script>
+                        <script src="js/airplane_detail_view_map.js"></script>
                     </body>
                 </html>
             </xsl:result-document>

@@ -9,8 +9,8 @@
             <xsl:value-of select="replace(.//tei:note[@type='mentions'][1]/@target, '.xml', '.html')"/>
         </xsl:variable>
         <div class="row">
-            <div class="col-md-4">
-                <h2>Info</h2>
+            <div class="col-md-6">
+                <h2 class="text-center p-2">Info</h2>
                 <dl>
                     <dt>Last name</dt>
                     <dd><xsl:value-of select=".//tei:surname[1]"/></dd>
@@ -41,6 +41,29 @@
                     </dd>
                     
                 </dl>
+            </div>
+            <div class="col-md-6">
+                <h2 class="text-center p-2">detained in</h2>
+                <xsl:if test=".//tei:residence//tei:geo">
+                    <div id="airplaneMap"></div>
+                </xsl:if>
+                <ul>
+                    <xsl:for-each select=".//tei:residence">
+                        <li>
+                            <xsl:value-of select="./tei:orgName"/>
+                            <xsl:if test=".//tei:location/tei:geo">
+                                <xsl:variable name="rsid" select=".//tei:placeName[1]/@key"/>
+                                <xsl:variable name="name" select=".//tei:placeName[1]"/>
+                                <xsl:variable name="lat" select="tokenize(.//tei:geo[1], ' ')[1]"/>
+                                <xsl:variable name="lng" select="tokenize(.//tei:geo[1], ' ')[2]"/>
+                                <span class="dse-place" data-rsid="{$rsid}" data-name="{$name}" data-lat="{$lat}" data-lng="{$lng}">
+                                    <xsl:value-of select="concat(' (', .//tei:placeName, ')')"/>
+                                </span>
+                            </xsl:if>
+                        </li>
+                    </xsl:for-each>
+                </ul>
+                
             </div>
         </div>
     </xsl:template>
