@@ -10,7 +10,7 @@ data/imprint.xml
 data/indices/*.xml
 data/editions/*.xml
 data/meta/*.xml
-
+bar.*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
