@@ -40,5 +40,9 @@ places.forEach((place) => {
 // Add marker cluster group to map
 map.addLayer(markers);
 
-// Fit map to show all markers
-map.fitBounds(markers.getBounds(), { padding: [50, 50] });
+if (places.length === 1) {
+    const place = places[0];
+    map.setView([place.lat, place.lng], 7);
+} else {
+    map.fitBounds(markers.getBounds(), { padding: [50, 50] });
+}
