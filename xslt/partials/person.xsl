@@ -109,8 +109,8 @@
                         </li>
                     </xsl:for-each>
                 </ul>
-                
             </div>
+            
         </div>
     </xsl:template>
 </xsl:stylesheet>

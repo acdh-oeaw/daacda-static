@@ -10,6 +10,7 @@
     <xsl:import href="./partials/html_navbar.xsl"/>
     <xsl:import href="./partials/html_footer.xsl"/>
     <xsl:import href="./partials/one_time_alert.xsl"/>
+    <xsl:import href="partials/blockquote.xsl"/>
 
     <xsl:template match="/">
         <xsl:variable name="doc_title">
@@ -60,6 +61,9 @@
                                         National Archives and Records Administration</figcaption>
                                 </figure>
                             </div>
+                        </div>
+                        <div class="text-center p-4">
+                            <xsl:call-template name="blockquote"/>
                         </div>
                     </div>
                 </main>
