@@ -14,9 +14,7 @@
     <xsl:import href="./partials/blockquote.xsl"/>
 
     <xsl:template match="/">
-        <xsl:variable name="doc_title">
-            <xsl:value-of select=".//tei:titleStmt/tei:title[1]/text()"/>
-        </xsl:variable>
+        <xsl:variable name="doc_title" select="'Detention centers'" />
         <html class="h-100" lang="{$default_lang}">
 
             <head>
@@ -41,20 +39,26 @@
                         <h1>
                             <xsl:value-of select="$doc_title"/>
                         </h1>
-                        <div class="text-center p-1"><span id="counter1"></span> of <span id="counter2"></span> Institutions</div>
+                        <div class="text-center p-1"><span id="counter1"></span> of <span id="counter2"></span> Detention centers</div>
                         
                         <table id="myTable">
                             <thead>
                                 <tr>
                                     <th scope="col" tabulator-headerFilter="input" tabulator-formatter="html" tabulator-download="false" tabulator-minWidth="200">Name</th>
                                     <th scope="col" tabulator-headerFilter="input" tabulator-visible="false" tabulator-download="true">name_</th>
+                                    <th scope="col" tabulator-headerFilter="input">located at</th>
+                                    <th scope="col" tabulator-headerFilter="input">type</th>
+                                    <th scope="col" tabulator-headerFilter="input">related records count</th>
                                     <th scope="col" tabulator-visible="false" tabulator-download="true">ID</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <xsl:for-each select=".//tei:org">
+                                <xsl:for-each select=".//tei:org[./tei:location]">
                                     <xsl:variable name="id">
                                         <xsl:value-of select="data(@xml:id)"/>
+                                    </xsl:variable>
+                                    <xsl:variable name="link">
+                                        <xsl:value-of select="concat($id, '.html')"/>
                                     </xsl:variable>
                                     <tr>
                                         <td>
@@ -62,14 +66,29 @@
                                               <xsl:attribute name="href">
                                               <xsl:value-of select="concat($id, '.html')"/>
                                               </xsl:attribute>
-                                              <i class="bi bi-link-45deg"/>
+                                                <xsl:value-of select=".//tei:orgName[1]/text()"/>
                                             </a>
                                         </td>
                                         <td>
                                             <xsl:value-of select=".//tei:orgName[1]/text()"/>
                                         </td>
+                                        
                                         <td>
-                                            <xsl:value-of select="$id"/>
+                                            <xsl:value-of select=".//tei:placeName[1]/text()"/>
+                                        </td>
+                                        <td>
+                                            <xsl:choose>
+                                                <xsl:when test="./tei:note[@type='station-type']">
+                                                    <xsl:value-of select="./tei:note[@type='station-type']"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>other</xsl:otherwise>
+                                            </xsl:choose>
+                                        </td>
+                                        <td>
+                                            <xsl:value-of select="count(.//tei:note[@type='mentions'])"/>
+                                        </td>
+                                        <td>
+                                            <xsl:value-of select="$link"/>
                                         </td>
                                     </tr>
                                 </xsl:for-each>

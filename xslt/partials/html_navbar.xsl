@@ -30,12 +30,15 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="toc.html">Crashed Airplanes</a>
                             </li>
-
+                            <li class="nav-item">
+                                <a class="nav-link" href="listperson.html">Crews</a>
+                            </li>
+                            
                             <li class="nav-item dropdown disabled">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Indices</a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="dropdown-item" href="listperson.html">Persons</a>
+                                        <a class="dropdown-item" href="listprison.html">Detention centers</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="listplace.html">Places</a>
