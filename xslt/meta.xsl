@@ -7,8 +7,9 @@
     
     <xsl:import href="./partials/html_navbar.xsl"/>
     <xsl:import href="./partials/html_head.xsl"/>
-    <xsl:import href="partials/html_footer.xsl"/>
+    <xsl:import href="./partials/html_footer.xsl"/>
     <xsl:import href="./partials/shared.xsl"/>
+    <xsl:import href="./partials/blockquote.xsl"/>
 
 
     <xsl:template match="/">
@@ -29,7 +30,10 @@
                         <h1 class="text-center pt-3">
                             <xsl:value-of select="$doc_title"/>
                         </h1>    
-                        <xsl:apply-templates select=".//tei:body"></xsl:apply-templates>
+                        <xsl:apply-templates select=".//tei:body"/>
+                        <div class="text-center p-4">
+                            <xsl:call-template name="blockquote"/>
+                        </div>
                     </div>
                 </main>
                 <xsl:call-template name="html_footer"/>

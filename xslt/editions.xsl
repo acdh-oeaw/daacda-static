@@ -155,7 +155,6 @@
                             <xsl:call-template name="blockquote">
                                 <xsl:with-param name="pageId" select="$link"/>
                             </xsl:call-template>
-                            
                         </div>
                     </div>
                 </main>

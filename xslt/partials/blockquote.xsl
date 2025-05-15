@@ -5,7 +5,8 @@
     version="2.0">
     <xsl:template match="/" name="blockquote">
         <xsl:param name="pageId" select="''"></xsl:param>
-        <xsl:variable name="fullUrl" select="concat('https://daacda.acdh.oeaw.ac.at/', $pageId)"/>
+        <xsl:param name="customUrl" select="$base_url"></xsl:param>
+        <xsl:variable name="fullUrl" select="concat($customUrl, $pageId)"/>
         <div>
             <h2 class="fs-4">How to cite</h2>
             <blockquote class="blockquote">
