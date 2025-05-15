@@ -149,3 +149,4 @@ desktop.ini
 .DS_Store
 foo.json
 foo.xml
+.secret
