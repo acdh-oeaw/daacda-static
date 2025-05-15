@@ -52,8 +52,8 @@
                         <div class="row">
                             <div class="col-lg-3 col-md-4 col-sm-3">
                                 <div class="col-md-4">
-                                    <a id="github-logo" title="GitHub" href="{$github_url}" class="nav-link">
-                                        
+                                    <a id="github-logo" href="{$github_url}" class="nav-link">
+                                        <i class="bi bi-github fs-1" visually-hidden="true"><span class="visually-hidden">Link to application's code repo</span></i>
                                     </a>
                                 </div>
                             </div>

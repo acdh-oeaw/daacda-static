@@ -36,7 +36,7 @@ dd {
 }
 
 .highlight {
-  background-color: var(--dse-base-color) ;
+  background-color: var(--dse-base-color);
   color: white;
   padding: 0.3rem;
   border-radius: 0.25rem;
@@ -64,7 +64,22 @@ dd {
   --bs-btn-border-color: var(--dse-base-color);
 }
 
+.multi-column {
+  columns: 3;
+}
+
+@media (max-width: 1400px) {
+  .multi-column {
+    columns: 2;
+  }
+}
+
+@media (max-width: 380px) {
+  .multi-column {
+    columns: 1;
+  }
+}
+
 #airplaneMap {
   height: 500px;
 }
-

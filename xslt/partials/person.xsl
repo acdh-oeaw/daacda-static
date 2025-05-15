@@ -57,9 +57,23 @@
                         <dd>
                             <a>
                                 <xsl:attribute name="href">
-                                    <xsl:value-of select="concat(./tei:death/tei:placeName/@key, '.html')"/>
+                                    <xsl:value-of select="concat(./tei:birth/tei:placeName/@key, '.html')"/>
                                 </xsl:attribute>
-                                <xsl:value-of select="./tei:death/tei:placeName"/>
+                                <xsl:choose>
+                                    <xsl:when test="./tei:death//tei:geo">
+                                        <xsl:variable name="rsid" select="./tei:death/tei:placeName[1]/@key"/>
+                                        <xsl:variable name="name" select="./tei:death/tei:placeName[1]"/>
+                                        <xsl:variable name="lat" select="tokenize(./tei:death//tei:geo[1], ' ')[1]"/>
+                                        <xsl:variable name="lng" select="tokenize(./tei:death//tei:geo[1], ' ')[2]"/>
+                                        <span class="dse-place" data-rsid="{$rsid}" data-name="{$name}" data-lat="{$lat}" data-lng="{$lng}">
+                                            <xsl:value-of select="./tei:death/tei:placeName"/>
+                                        </span>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="./tei:death/tei:placeName"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                
                             </a>
                         </dd>
                     </xsl:if>
@@ -96,15 +110,21 @@
                 <ul>
                     <xsl:for-each select=".//tei:residence">
                         <li>
-                            <xsl:value-of select="./tei:orgName"/>
+                            <a href="{./tei:orgName/@key||'.html'}">
+                                <xsl:value-of select="./tei:orgName"/>
+                            </a>
+                            
                             <xsl:if test=".//tei:location/tei:geo">
                                 <xsl:variable name="rsid" select=".//tei:placeName[1]/@key"/>
                                 <xsl:variable name="name" select=".//tei:placeName[1]"/>
                                 <xsl:variable name="lat" select="tokenize(.//tei:geo[1], ' ')[1]"/>
                                 <xsl:variable name="lng" select="tokenize(.//tei:geo[1], ' ')[2]"/>
-                                <span class="dse-place" data-rsid="{$rsid}" data-name="{$name}" data-lat="{$lat}" data-lng="{$lng}">
-                                    <xsl:value-of select="concat(' (', .//tei:placeName, ')')"/>
-                                </span>
+                                <xsl:text> (</xsl:text>
+                               
+                                    <a href="{.//tei:placeName[1]/@key||'.html'}" class="dse-place" data-rsid="{$rsid}" data-name="{$name}" data-lat="{$lat}" data-lng="{$lng}">
+                                        <xsl:value-of select=".//tei:placeName"/>
+                                    </a>
+                                <xsl:text>)</xsl:text>
                             </xsl:if>
                         </li>
                     </xsl:for-each>
