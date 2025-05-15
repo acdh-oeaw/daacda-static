@@ -26,6 +26,18 @@
         <link href="vendor/bootstrap-5.3.5-dist/css/bootstrap.min.css" rel="stylesheet"/>
         <link rel="stylesheet" href="vendor/bootstrap-icons/font/bootstrap-icons.min.css" />
         <link rel="stylesheet" href="css/style.css" type="text/css" />
+        <script type="text/javascript">
+            var _paq = _paq || [];
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function () {
+              var u = "https://matomo.acdh.oeaw.ac.at/";
+              _paq.push(['setTrackerUrl', u + 'piwik.php']);
+              _paq.push(['setSiteId', '88']);
+              var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+              g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'piwik.js'; s.parentNode.insertBefore(g, s);
+            })();
+        </script>
         
     </xsl:template>
 </xsl:stylesheet>
