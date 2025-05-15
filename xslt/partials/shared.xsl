@@ -27,4 +27,8 @@
        </span>
    </xsl:template>
     
+    <xsl:template match="tei:rs[@type='org']">
+        <a href="{replace(./@ref, '#', '')||'.html'}"><xsl:apply-templates/></a>
+    </xsl:template>
+    
 </xsl:stylesheet>

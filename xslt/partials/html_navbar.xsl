@@ -33,6 +33,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="listperson.html">Crews</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="squadrons.html">Squadrons</a>
+                            </li>
                             
                             <li class="nav-item dropdown disabled">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Indices</a>
