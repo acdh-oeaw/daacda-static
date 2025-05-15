@@ -11,7 +11,7 @@
             <h2 class="fs-4">How to cite</h2>
             <blockquote class="blockquote">
                 <p>
-                    DAACDA – Downed Allied Air Crew Database Austria, edited by edited by Nicole-Melanie Goll, Georg Hoffmann and Peter Andorfer, Vienna 2025 (<a href="{$fullUrl}"><xsl:value-of select="$fullUrl"/></a>)
+                    DAACDA – Downed Allied Air Crew Database Austria, edited by Nicole-Melanie Goll, Georg Hoffmann and Peter Andorfer, Vienna 2025 (<a href="{$fullUrl}"><xsl:value-of select="$fullUrl"/></a>)
                 </p>
             </blockquote>
         </div>
