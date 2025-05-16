@@ -11,6 +11,7 @@ data/indices/*.xml
 data/editions/*.xml
 data/meta/*.xml
 bar.*
+node_modules/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -150,3 +151,5 @@ desktop.ini
 foo.json
 foo.xml
 .secret
+package.json
+pnpm-lock.yaml
