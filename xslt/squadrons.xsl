@@ -35,7 +35,7 @@
                         </ol>
                     </nav>
                     <div class="container">                        
-                        <h1>
+                        <h1 class="text-center">
                             <xsl:value-of select="$doc_title"/>
                         </h1>
                         <div class="text-center p-1"><span id="counter1"></span> of <span id="counter2"></span> Squadrons</div>

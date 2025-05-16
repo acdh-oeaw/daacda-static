@@ -71,7 +71,7 @@
                                 </xsl:if>
                             </div>
                             <div class="col-md-8 col-lg-8 col-sm-12 text-center">
-                                <h1>
+                                <h1 class="text-center">
                                     <xsl:value-of select="$doc_title"/>
                                 </h1>
                                 <div>
