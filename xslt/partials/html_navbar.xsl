@@ -49,6 +49,10 @@
                                 </ul>
                             </li>
                         </ul>
+                        <form class="d-flex" role="search" method="GET" action="search.html">
+                            <input class="form-control me-2" type="search" placeholder="Suche" aria-label="Search" name="daacda[query]"></input>
+                            <button class="btn btn-primary" type="submit">Search</button>
+                        </form>
                     </div>
                 </div>
             </nav>
