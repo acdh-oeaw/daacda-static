@@ -17,51 +17,36 @@
                     <div class="col-lg-4 col-md-3 col-sm-3">
                         <div>
                             <p>
-                                ACDH-CH
+                                <a href="https://www.oeaw.ac.at/acdh/acdh-home">ACDH</a>
                                 <br />
-                                    Austrian Centre for Digital Humanities and Cultural Heritage
+                                    Austrian Centre for Digital Humanities
                                     <br />
-                                        Österreichische Akademie der Wissenschaften
+                                        Austrian Academy of Sciences
                             </p>
                             <p>
                                 Bäckerstraße 13
                                 <br />
                                     1010 Wien
                             </p>
-                            <p>
-                                T: +43 1 51581-2200
-                                <br />
-                                    E: <a href="mailto:acdh-ch-helpdesk@oeaw.ac.at
-                                        ">acdh-ch-helpdesk@oeaw.ac.at</a>
-                            </p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-3">
                         <div class="row">
                             <div>
-                                <span class="fs-6">HELPDESK</span>
-                                <br />
-                                    <p>
-                                        ACDH-CH operates a helpdesk offering advice and assistance on a wide range of digital humanities issues.
+                                <span class="fs-4">Questions and Feedback:</span>
+                                
+                                    <p class="fs-5">
+                                        <a href="mailto:daacda@gmx.at">daacda@gmx.at</a>
                                     </p>
-                                    <p>
-                                        <a href="mailto:acdh-ch-helpdesk@oeaw.ac.at">e-Mail</a>
-                                    </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 col-sm-3">
-                                <div class="col-md-4">
-                                    <a id="github-logo" href="{$github_url}" class="nav-link">
-                                        <i class="bi bi-github fs-1" visually-hidden="true"><span class="visually-hidden">Link to application's code repo</span></i>
-                                    </a>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <!-- .-->
                 </div>
-                <div class="text-center fs-6 fw-lighter">© Copyright OEAW | <a href="imprint.html">Imprint</a>
+                <div class="text-center fs-6 fw-lighter">© Copyright OEAW | <a href="imprint.html">Imprint</a><br/>
+                    <a id="github-logo" href="{$github_url}">
+                                        <i class="bi bi-github fs-1" visually-hidden="true"><span class="visually-hidden">Link to application's code repo</span></i>
+                                    </a>
                 </div>
             </div>
         </footer>
