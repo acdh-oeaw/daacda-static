@@ -21,7 +21,7 @@ current_schema = {
     "enable_nested_fields": True,
     "metadata": {
         "owners": ["Peter Andorfer"],
-        "description": "https://github.com/acdh-oeaw/daacda-static",
+        "description": "https://github.com/reading-in-the-alps/rita-static",
         "service_ids": [25177],
     },
     "fields": [
