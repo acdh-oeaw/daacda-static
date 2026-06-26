@@ -19,6 +19,11 @@ except ObjectNotFound:
 current_schema = {
     "name": COLLECTION_NAME,
     "enable_nested_fields": True,
+    "metadata": {
+        "owners": ["Peter Andorfer"],
+        "description": "https://github.com/acdh-oeaw/daacda-static",
+        "service_ids": [25177],
+    },
     "fields": [
         {"name": "id", "type": "string", "sort": True},
         {"name": "surname", "type": "string", "sort": True},
